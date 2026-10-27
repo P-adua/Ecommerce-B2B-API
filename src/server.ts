@@ -5,7 +5,11 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://localhost:5173"],
+  }),
+);
 app.use(express.json());
 
 app.get("/products", async (_req, res) => {
@@ -13,4 +17,4 @@ app.get("/products", async (_req, res) => {
   res.json(products);
 });
 
-app.listen(3333, () => console.log("API rodando em http://localhost:3333"));
+app.listen(3333, () => console.log("API rodando em https://localhost:3333"));
