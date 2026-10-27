@@ -1,0 +1,28 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Product] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [sku] NVARCHAR(1000) NOT NULL,
+    [name] NVARCHAR(1000) NOT NULL,
+    [category] NVARCHAR(1000) NOT NULL,
+    [priceCents] INT NOT NULL,
+    [stock] INT NOT NULL CONSTRAINT [Product_stock_df] DEFAULT 0,
+    CONSTRAINT [Product_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [Product_sku_key] UNIQUE NONCLUSTERED ([sku])
+);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
