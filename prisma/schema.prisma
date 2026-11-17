@@ -23,3 +23,13 @@ model Product {
   specSpeed     String
   specType      String
 }
+
+model User {
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  passwordHash String
+  role         String @default("BUYER")
+  cnpj         String @unique
+  companyName  String
+  segment      String
+}
